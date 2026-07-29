@@ -1,0 +1,1 @@
+Colocar el vídeo del péndulo en la carpeta resources.
