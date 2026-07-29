@@ -1,10 +1,13 @@
 import cv2
-import numpy
+import numpy as np
 
 cap = cv2.VideoCapture("pendulo.mp4")
 
 ret, frame = cap.read()
-fame_number = 0
+fame_numb = 0
+punto_suspension = np.array([1, 1])
+valores = []
+fps = cap.get(cv2.CAP_PROP_FPS)
 
 while ret:
 
@@ -22,6 +25,9 @@ while ret:
         maxRadius=100
     )
 
-    
-
+    if circles is not None:
+        theta = np.atan2(circles[0][0][0] - punto_suspension[0], circles[0][0][1] - punto_suspension[1])
+        valores.append(np.array([frame_num / fps, theta]))
     frame_num += 1
+    ret, frame = cap.read()
+cap.release()
