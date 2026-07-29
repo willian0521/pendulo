@@ -11,4 +11,4 @@ def rk4(start, end, number_of_dots, function, initial_value):
         k3 = step * function(t[i] + step / 2, w[i, :] + k2 / 2)
         k4 = step * function(t[i+1], w[i, :] + k3)
         w[i+1, :] = w[i, :] + (k1 + 2 * k2 + 2 * k3 + k4) / 6
-    return w
+    return w, t

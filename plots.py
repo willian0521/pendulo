@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
+
 csv_path = Path("resources") / "theta.csv"
-csv_path = Path(__file__).parent / "resources" / "theta.csv"
 
 real_data = np.loadtxt(
     csv_path,
@@ -10,11 +10,12 @@ real_data = np.loadtxt(
     skiprows=1,
     usecols=(0, 1)
 ) #guardar datos reales
-approx_data = np.zeros(10) #aproximaciones de rk4
+
+approx_data = np.load('data_aproximadark4.npy') #aproximaciones de rk4
+tiempos = np.load('tiempos_rk4.npy')
 
 plt.plot(real_data[:, 0], real_data[:, 1], c="red")
-
-#plt.plot(approx_data[:][0], approx_data[:][1])
+plt.plot(tiempos + 0.3, approx_data[:, 0])
 
 plt.ylabel("Ángulo")
 plt.xlabel("Tiempo")
