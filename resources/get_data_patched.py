@@ -13,8 +13,6 @@ VIDEO = BASE_DIR / "pendulo.mp4"
 
 CSV_SALIDA = BASE_DIR / "theta.csv"
 
-DT = 0.02
-
 # ======================================
 
 puntos = []
@@ -50,6 +48,8 @@ if not cap.isOpened():
 
 fps = cap.get(cv2.CAP_PROP_FPS)
 
+print(fps)
+
 nframes = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
 duracion = nframes / fps
@@ -62,17 +62,45 @@ print(f"Duración  : {duracion:.2f} s")
 # CSV
 # ======================================
 
-csv_file = open(CSV_SALIDA, "w", newline="")
+frame_inicial = 0
+
+if CSV_SALIDA.exists():
+
+    # Leer la última medición
+    with open(CSV_SALIDA, "r", newline="") as f:
+
+        reader = csv.reader(f)
+
+        filas = list(reader)
+
+        # Si el archivo contiene alguna medición además de la cabecera
+        if len(filas) > 1:
+
+            ultima_fila = filas[-1]
+
+            ultimo_t = float(ultima_fila[0])
+
+            frame_inicial = int(round(ultimo_t * fps)) + 1
+
+    # Abrir para seguir escribiendo
+    csv_file = open(CSV_SALIDA, "a", newline="")
+
+else:
+
+    csv_file = open(CSV_SALIDA, "w", newline="")
 
 writer = csv.writer(csv_file)
 
-writer.writerow([
-    "tiempo",
-    "theta(rad)",
-    "theta(deg)"
-])
+# Sólo escribir cabecera si el archivo es nuevo
+if frame_inicial == 0 and csv_file.tell() == 0:
 
-csv_file.flush()
+    writer.writerow([
+        "tiempo",
+        "theta(rad)",
+        "theta(deg)"
+    ])
+
+    csv_file.flush()
 
 # ======================================
 
@@ -82,9 +110,9 @@ cv2.setMouseCallback("Frame", mouse)
 
 t = 0.0
 
-while t <= duracion:
+frame_id = frame_inicial
 
-    frame_id = int(round(t * fps))
+while frame_id < nframes:
 
     cap.set(cv2.CAP_PROP_POS_FRAMES, frame_id)
 
@@ -93,6 +121,7 @@ while t <= duracion:
     if not ret:
         break
 
+    t = frame_id / fps
     puntos.clear()
 
     while True:
@@ -222,7 +251,7 @@ while t <= duracion:
 
             exit()
 
-    t += DT
+    frame_id += 1
 
 # ======================================
 

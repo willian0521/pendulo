@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
-
 csv_path = Path("resources") / "theta.csv"
+csv_path = Path(__file__).parent / "resources" / "theta.csv"
 
 real_data = np.loadtxt(
     csv_path,
