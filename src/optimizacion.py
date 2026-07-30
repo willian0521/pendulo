@@ -1,11 +1,15 @@
 from scipy.optimize import curve_fit
 from pathlib import Path
 import numpy as np
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
 
 def pendulum_15_teorica(t, A = 1, beta = 0, omega = 1, phi = 0):
     return A * np.exp(-beta * t) * np.cos(omega * t + phi)
 
-csv_path = Path("resources") / "theta_2.csv"
+csv_path = Path("data") / "raw" / "theta_15.csv"
 
 data_experimental = np.loadtxt(
     csv_path,

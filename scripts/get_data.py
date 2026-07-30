@@ -7,9 +7,9 @@ from pathlib import Path
 # CONFIGURACIÓN
 # ======================================
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-VIDEO = BASE_DIR / "pendulo.mp4"
+VIDEO = BASE_DIR / "resources" / "pendulo.mp4"
 
 CSV_SALIDA = BASE_DIR / "theta.csv"
 
