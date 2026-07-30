@@ -1,8 +1,13 @@
 import numpy as np
 
-def rk4(start, end, number_of_dots, function, initial_value):
-    step = (end - start) / number_of_dots
-    t = np.linspace(start, end, number_of_dots + 1)
+def rk4(start, end, function, initial_value, number_of_dots = None, step = None):
+    if number_of_dots is None and step is None:
+        raise ValueError("Debe especificarse la cantidad de puntos o el paso")
+    elif number_of_dots is None:
+        t = np.arange(start, end, step)
+    else:
+        step = (end - start) / number_of_dots
+        t = np.linspace(start, end, number_of_dots + 1)
     w = np.zeros([t.size, initial_value.size])
     w[0, :] = initial_value
     for i in range(t.size - 1):
