@@ -42,3 +42,7 @@ plt.ylabel("Ángulo")
 plt.xlabel("Tiempo")
 
 plt.show()
+
+plt.plot(tiempos_15[1:173], (real_data_15[1:173, 1] - teorica_data_15[1:173])**2, label = "Error cuadratico")
+plt.legend()
+plt.show()
