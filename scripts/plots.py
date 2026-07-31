@@ -51,8 +51,7 @@ plt.xlabel("Tiempo")
 
 plt.show()
 
-print(teorica_data_15.shape)
-print(real_data_15.shape)
-plt.plot(tiempos_15[1:173], (real_data_15[1:173, 1] - teorica_data_15[1:173])**2, label = "Error cuadratico")
+plt.plot(tiempos_15, (real_data_15[:492, 1] - teorica_data_15)**2, label = "Error cuadratico")
+plt.plot(tiempos_15, np.abs((real_data_15[:492, 1] - teorica_data_15)), label = "Error absoluto")
 plt.legend()
 plt.show()
