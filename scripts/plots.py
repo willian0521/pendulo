@@ -51,7 +51,12 @@ plt.xlabel("Tiempo")
 
 plt.show()
 
-plt.plot(tiempos_15, (real_data_15[:492, 1] - teorica_data_15)**2, label = "Error cuadratico")
-plt.plot(tiempos_15, np.abs((real_data_15[:492, 1] - teorica_data_15)), label = "Error absoluto")
+error_cuadratico_15 = (real_data_15[:492, 1] - teorica_data_15)**2
+error_absoluto_15 = np.abs(real_data_15[:492, 1] - teorica_data_15)
+
+plt.plot(tiempos_15, error_cuadratico_15, label = "Error cuadratico")
+plt.plot(tiempos_15, error_absoluto_15, label = "Error absoluto")
+print(f"Error medio: {np.mean(error_absoluto_15)}. Cota del error: ({np.min(error_absoluto_15)}, {np.max(error_absoluto_15)})")
+print(f"Error cuadrático medio: {np.mean(error_cuadratico_15)}. Cota del error: ({np.min(error_cuadratico_15)}, {np.max(error_cuadratico_15)})")
 plt.legend()
 plt.show()
