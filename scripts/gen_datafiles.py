@@ -18,7 +18,7 @@ def pendulum_15(t, T):
 def pendulum_15_teorica(t, A = 1, beta = 0, omega = 1, phi = 0):
     return A * np.exp(-beta * t) * np.cos(omega * t + phi)
 
-approximated_data_40, time_40 = rk4.rk4(0, 14.066666, function = pendulum_40, initial_value=np.array([0.7345944593392267, 0]), step = 1/30)
+approximated_data_40, time_40 = rk4.rk4(0, 13.7666666667, function = pendulum_40, initial_value=np.array([0.7345944593392267, 0]), step = 1/30)
 
 approximated_data_15, time_15 = rk4.rk4(0, 16.4, pendulum_15, np.array([0.2606531288, 0]), step = 1/30)
 
